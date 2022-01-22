@@ -1,0 +1,126 @@
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+  width: 60%;
+  margin-top: 20px;
+}
+
+.List {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.List .textContainer {
+  display: flex;
+  width: 100%;
+}
+
+.List .textContainer form {
+  display: flex;
+  width: 100%;
+}
+
+.List .buttonsContainer {
+  margin-left: 10px;
+  min-width: 90px;
+}
+
+.List .buttonsContainer .submitButton {
+  margin: 0px;
+  background: linear-gradient(170deg,#2196f3, #47db96);
+}
+
+.List .ListItem {
+  background: linear-gradient(170deg,#2196f3, #f7645a);
+  width: 100%;
+  padding: 10px 10px;
+  margin-top: 15px;
+  border-radius: 10px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  box-shadow: 2px 2px 2px grey;
+}
+
+.List .ListItem.completed {
+   text-decoration:line-through;
+}
+
+.messageContainer .message {
+  border: 1px solid white ;
+  border-radius: 2px;
+  padding: 10px 110px;
+  margin-top: 15px;
+  box-shadow: 3px 3px 3px rgba(255, 255, 255, 0.473);
+  user-select: none;
+}
+
+.listContainer .submitButton {
+  margin: 20px 0px;
+}
+
+.deleteButton {
+  background: linear-gradient(90deg,#e0eafc, #cfdef3);
+  padding: 3px 7px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #413fb8;
+}
+
+.deleteButton::after {
+  line-height: 0;
+  content: '\2421';
+}
+
+.completeButton {
+  background: linear-gradient(90deg,#e0eafc, #cfdef3);
+  color: black;
+  padding: 3px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.deleteButton:active, .completeButton:active, .editButton:active {
+  box-shadow: 2px 2px 2px black;
+}
+
+.completeButton.completed:after{
+  content: '\2717';
+  line-height: 0px;
+  color: #f7645a;
+}
+.completeButton.notCompleted:after{
+  content: '\2713';
+  line-height: 0px;
+  color: green;
+}
+
+.editButton {
+  background: linear-gradient(90deg,#e0eafc, #cfdef3);
+  color: black;
+  padding: 3px 6px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.editButton::after {
+  line-height: 0;
+  content: '\270E';
+}
+
+.textContainer input {
+  width: 100%;
+
+}
+.textContainer input:focus {
+  outline: none;
+}

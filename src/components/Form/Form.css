@@ -1,0 +1,45 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+  width: 50%;
+  margin-top: 30px;
+}
+
+.Form h1 {
+margin-bottom: 20px;
+}
+
+.Form .wrapper_inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form .wrapper_inputs>span strong {
+  margin-left: 20px;
+}
+
+.Form .wrapper_inputs .search-input {
+  margin-left: 18px;
+}
+
+.Form .wrapper_inputs select {
+  width: 100px;
+  height: 22px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-left: 5px;
+}
+
+.Form .wrapper_inputs .selectContainer {
+  margin-left: 15px;
+}
+
+.Form .wrapper_inputs select option {
+  width: 100px;
+  height: 22px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-left: 5px;
+}

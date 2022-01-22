@@ -1,0 +1,44 @@
+.modalMessage {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  display: none;
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalMessage.active {
+  display:flex;
+}
+
+.modalMessageContainer {
+  left: 50%;
+  top: 50%;
+  background: linear-gradient(90deg,#4695d6e1, #c4e0e5);
+  font-size: 1.1rem;
+  padding: 20px 20px;
+  height: max-content;
+  border-radius: 10px;
+  width: 30%;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.modalMessageContainer .message {
+  margin-bottom: 20px;
+}
+.modalMessageContainer .buttonsContainer {
+  width: 120px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modalMessageContainer .submitButton {
+  font-size: 1.0rem;
+}

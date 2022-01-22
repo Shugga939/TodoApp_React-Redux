@@ -1,0 +1,150 @@
+.modalMenu {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  transform: translateX(-130%);
+  transition: .25s all;
+}
+
+.modalMenu.active {
+  transform: translateX(0);
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  left: 30%;
+  z-index: -1;
+}
+
+.menu {
+  font-size: 1.5rem;
+  padding-top: 20px;
+  height: 100%;
+  width: 30%;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+  background: linear-gradient(90deg,#4695d6e1, #c4e0e5);
+}
+.navLinks-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navLinks .link {
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  text-decoration: none;
+}
+.navLinks .active {
+  color :#f72011;
+}
+
+.link:hover{
+  color: #1e3c72;
+}
+
+.burgerButton{
+  width: 35px;
+  height: 35px;
+  position:fixed;
+  top: 20px;
+  left: 20px;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.burgerButton span {
+  display: block;
+  position: absolute;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(150deg,#2196f3, #f72011);
+  border-radius: 9px;
+  opacity: 1;
+  left: 0px;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.burgerButton span:nth-child(1) {
+  top: 0px;
+}
+
+.burgerButton span:nth-child(2), .burgerButton span:nth-child(3) {
+  top: 13px;
+}
+.burgerButton span:nth-child(4) {
+  top: 25px;
+}
+
+.burgerButton.open span:nth-child(1) {
+  background: white;
+  top: 18px;
+  width: 0px;
+  left: 50%;
+}
+
+.burgerButton.open span:nth-child(2) {
+  background: white;
+  transform: rotate(45deg);
+}
+
+
+.burgerButton.open span:nth-child(3) {
+  background: white;
+  transform: rotate(-45deg);
+}
+
+.burgerButton.open span:nth-child(4) {
+  background: white;
+  top: 18px;
+  width: 0%;
+  left: 50%;
+}
+
+.greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.greetings p {
+  margin: 0;
+
+}
+.greetings p:first-child  {
+  text-align: center;
+  color: #1e3c72;
+  margin: 10px 0px;
+  width: 300px;
+  word-wrap: break-word;
+}
+
+.link_reg {
+  margin-top: 0;
+  text-decoration: none;
+  color: #3973f0;
+}
+
+.link_reg:hover {
+  color: #e63645
+}
