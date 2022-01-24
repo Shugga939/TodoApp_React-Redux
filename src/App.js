@@ -8,18 +8,11 @@ import { useDispatch } from "react-redux";
 import { loadTODOS, removeTODOS } from "./store/todoReducer";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { setAuth } from "./store/authReducer";
 
 export const Context = createContext(null)
 function App() {
   const dispatch = useDispatch()
 
-  
-  useEffect (()=>{
-    const auth = getAuth()
-    const firestore = getFirestore()
-    dispatch(setAuth(auth))
-  })
 
   // let arrOfTodos = JSON.parse(localStorage.getItem('todosList'))
 

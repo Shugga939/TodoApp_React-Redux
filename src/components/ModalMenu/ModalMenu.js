@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './ModalMenu.css'
 import BurgerButton from './../ui/BurgerButton'
 import {Link,NavLink} from 'react-router-dom'
@@ -7,17 +7,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import {userLogout} from '../../store/userReducer'
 import {removeTODOS} from '../../store/todoReducer'
 import { changeSearchValue } from '../../store/formReducer';
+import { getAuth, signOut } from 'firebase/auth'
 
 
 function ModalMenu({show,setShow}) {
 
-  let userId = useSelector(state=>state.user)
   let dispatch = useDispatch()
+  let user = getAuth().currentUser
 
   let logout = function (event) {
     event.preventDefault()
     dispatch(userLogout())
     dispatch(removeTODOS())
+    signOut(getAuth()).catch((error) => {console.log(error)});
     dispatch(changeSearchValue(''))
     setShow(false)
   }
@@ -39,7 +41,7 @@ function ModalMenu({show,setShow}) {
         <div className={show? 'modalMenu active': 'modalMenu'}>
           <div className='blur' onClick={()=>setShow(false)}/>
           <div className='menu'>
-          {(userId==='New user')? 
+          {(!user)? 
             <div className = 'greetings'> Welcome
               <p> {'New user'} </p>
               <p> Do you want to </p>
@@ -47,13 +49,13 @@ function ModalMenu({show,setShow}) {
             </div>
           :
             <div className = 'greetings'> Welcome
-              <p> {`User ${userId}` } </p>
+              <p> {`User ${user.email}` } </p>
               <p> <SubmitButton callback={logout} title = 'Log Out'></SubmitButton> </p>
             </div>
           }
           <div className ='navLinks-container'>
             <nav className='navLinks'>
-              {userId === 'New user'? 
+              {(!user)? 
                 linksNotLoginned.map((item)=>{
                   return <NavLink to={item.ref} className = 'link' key={item.ref}> {item.name} </NavLink>
                 })
