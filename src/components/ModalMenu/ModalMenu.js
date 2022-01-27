@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './ModalMenu.css'
 import BurgerButton from './../ui/BurgerButton'
 import {Link,NavLink} from 'react-router-dom'
 import SubmitButton from '../ui/SubmitButton'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {userLogout} from '../../store/userReducer'
 import {removeTODOS} from '../../store/todoReducer'
 import { changeSearchValue } from '../../store/formReducer';
@@ -15,11 +15,11 @@ function ModalMenu({show,setShow}) {
   let dispatch = useDispatch()
   let user = getAuth().currentUser
 
-  let logout = function (event) {
+  let logout = async function (event) {
     event.preventDefault()
     dispatch(userLogout())
     dispatch(removeTODOS())
-    signOut(getAuth()).catch((error) => {console.log(error)});
+    await signOut(getAuth()).catch((error) => {console.log('Error:' + error)});
     dispatch(changeSearchValue(''))
     setShow(false)
   }

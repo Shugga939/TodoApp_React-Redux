@@ -3,16 +3,10 @@ import About from "./pages/About"
 import {BrowserRouter,Route, Routes, Navigate} from 'react-router-dom'
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
-import { createContext, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loadTODOS, removeTODOS } from "./store/todoReducer";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { createContext } from "react";
 
 export const Context = createContext(null)
 function App() {
-  const dispatch = useDispatch()
-
 
   // let arrOfTodos = JSON.parse(localStorage.getItem('todosList'))
 

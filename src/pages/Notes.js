@@ -1,13 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from "./../components/TodoList/List";
 import Form from "./../components/Form/Form";
 import ModalMenu from "./../components/ModalMenu/ModalMenu";
 import ModalMessage from '../components/ModalMessage/ModalMessage'
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
+import {removeTODOS} from '../store/todoReducer'
+import { useDispatch } from 'react-redux';
+import { loadTODOS } from '../store/todoReducer';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 function Notes() {
   let [showModalMenu, setShowModalMenu] = useState(false)
   let [showModalMessage, setShowModalMessage] = useState(false)
+  let auth = getAuth()
+  let firestore = getFirestore()
+  let dispatch = useDispatch()
+  const [user, loadingUser] = useAuthState(auth);
+
+
+  useEffect(()=> {  
+    loadingTodos()
+  })
+
+  async function loadingTodos() {   
+    if (!loadingUser) {
+      if (user) {
+        const loadedTodos = await getDoc(doc(firestore, 'Todos', `${user.email}`))
+        let arrTodos = []
+        for (const key in loadedTodos.data()) {
+          arrTodos.push(loadedTodos.data()[key])
+          }
+        dispatch(loadTODOS(arrTodos)) 
+      } else {
+        dispatch(removeTODOS()) 
+      }
+    } 
+    // if (!loadingDB && !loading && user) {
+      // const loadedTodos =  getDocs(collection(firestore, auth.currentUser))
+      // dispatch(loadTODOS(loadedTodos))
+      // massages.forEach(element => {
+      //   if (element,)
+      // });
+      // console.log(massages)
+    // } 
+    // else {
+    //   let localTodos = JSON.parse(localStorage.getItem('todosList'))
+    //   localTodos? loadTODOS(localTodos): dispatch(removeTODOS())
+    // }
+  }
 
   return (
       <div className = 'TODO'>

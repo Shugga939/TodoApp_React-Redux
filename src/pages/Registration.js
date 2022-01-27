@@ -49,8 +49,9 @@ function Registration() {
   }
 
   let editEmail = (val)=> {
+    const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
     setRegForm({...regForm, Email: val})
-    if (!val.includes('@')) {
+    if (reg.test(val) === false) {
       setErrorMessage({...errorMasage, Email:'Wrong Email'})
     } else {
       setErrorMessage({...errorMasage, Email:''})
