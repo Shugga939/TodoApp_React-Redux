@@ -18,8 +18,10 @@ function Notes() {
   let firestore = getFirestore()
   let dispatch = useDispatch()
   const [user, loadingUser] = useAuthState(auth);
+  let [isLoading, setisLoading] = useState(false)
 
-  useEffect(()=> {  
+  useEffect(()=> {
+    setisLoading(true)
     loadingTodos()
   },[user])
   
@@ -32,10 +34,15 @@ function Notes() {
           arrTodos.push(loadedTodos.data()[key])
           }
         dispatch(loadTODOS(arrTodos))
+        setisLoading(false)
       } else {
         dispatch(removeTODOS())
+        setisLoading(false)
       }
-    } 
+    } else {
+      setisLoading(false)
+
+    }
   }
     // if (!loadingDB && !loading && user) {
       // const loadedTodos =  getDocs(collection(firestore, auth.currentUser))
@@ -67,7 +74,7 @@ function Notes() {
       <ModalMenu show={showModalMenu} setShow={setShowModalMenu}/>
       <ModalMessage message='Are you sure?'show={showModalMessage} setShow={setShowModalMessage} callback={deleteTodos}/>
       <Form/>
-      <List setShow={setShowModalMessage}/>
+      <List setShow={setShowModalMessage} isLoading = {isLoading}/>
     </div>
   );
 }

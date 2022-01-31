@@ -6,16 +6,17 @@ import ListItem from './ListItem'
 import "./TodoList.css";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
+import Loader from '../Loader/Loader';
 
-function List({setShow}) {
+function List({setShow, isLoading}) {
   let todos = useSelector(state=>state.todos)
   let inputSearch = useSelector(state => state.form.search)
   let selectSort = useSelector(state => state.form.sort)
-  let [isLoading, setIsLoading] = useState (false)
+  // let [isLoading, setIsLoading] = useState (false)
   let sortingAndSearchingTodos = useTodos (todos, selectSort, inputSearch)
   let auth = getAuth()
   let firestore = getFirestore()
-
+console.log(isLoading)
   // useEffect(()=> {  
   //   if (userId === '1') {
   //     setIsLoading(true)
@@ -82,12 +83,15 @@ function List({setShow}) {
          {(sortingAndSearchingTodos.length>0) && 
           <SubmitButton title = 'DELETE ALL NOTES' callback = {()=>{setShow(true)}}/>}
       </div>
-    : 
+    : (!isLoading)? 
       <div className='messageContainer'>
         {(isLoading) && <div className = 'message'>Loading</div>}
         {(!inputSearch.length && !isLoading) && <div className = 'message'>Add our notes</div>}
         {(!!inputSearch.length && !isLoading) && <div className = 'message'>Not found</div>}
       </div>
+      : <Loader></Loader>
+    
+      
   ) 
 }
 
