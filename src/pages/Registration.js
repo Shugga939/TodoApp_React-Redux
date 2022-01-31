@@ -4,8 +4,8 @@ import SubmitButton from '../components/ui/SubmitButton'
 import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import CustomInputRegForm from "../components/ui/CustomInputRegForm";
-import { userLogin } from "../store/userReducer";
 import { removeTODOS } from "../store/todoReducer";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 let defaultValues = {Email: '', pass: '', repPass: ''}
 
@@ -16,9 +16,27 @@ function Registration() {
   let [errorMasage, setErrorMessage] = useState ({
     Email:'The field must be not empty', 
     pass: 'The field must be not empty',
-    repPass: 'Passwords mismatch'
+    repPass: 'Passwords mismatch',
+    busyEmail: ''
   })
   let [validForm, setValidForm] = useState (true)
+  let dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  async function registration () {
+    console.log(regForm.Email,  regForm.pass)
+    createUserWithEmailAndPassword(getAuth(), regForm.Email, regForm.pass)
+    .then((userCredential) => {
+      dispatch(removeTODOS())
+      setRegForm(defaultValues)
+      navigate('/home')
+      console.log('Reg success')
+    })
+    .catch((error) => {
+      setErrorMessage({...errorMasage, busyEmail:'Email already busy'})
+      console.log('Reg error:'+ error)
+    });
+  }
 
   useEffect(()=> {
     if (!errorMasage.Email && !errorMasage.pass && !errorMasage.repPass) {
@@ -28,10 +46,7 @@ function Registration() {
     }
   },[errorMasage])
 
-  let dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  let createUser = (event)=> {
+  let createUser = async (event)=> {
     event.preventDefault()
     if (!regForm.Email) {
       blurInput('email')
@@ -41,10 +56,8 @@ function Registration() {
       blurInput('repPassowrd')
     }
     if (regForm.Email && regForm.pass && regForm.repPass && validForm) {
-      dispatch(userLogin(11))
-      dispatch(removeTODOS())
-      setRegForm(defaultValues)
-      navigate('/home')
+      registration()
+
     }
   }
 
@@ -113,6 +126,7 @@ function Registration() {
         <CustomInputRegForm className = 'password-input' name = {'password'} type = {'password'} blur = {blurInput} changeValue = {editPass} value={regForm.pass} title = 'Password'/>
         {(wrongValue.repPass && errorMasage.repPass) && <div className = 'error-message'> {errorMasage.repPass}</div>}
         <CustomInputRegForm className = 'repPassword-input' name = {'repPassowrd'} type = {'password'} blur = {blurInput} changeValue = {editRepPass} value={regForm.repPass} title = 'Repeat pass'/>
+        {(errorMasage.busyEmail) && <div className = 'error-message'>{errorMasage.busyEmail}</div>}
         <SubmitButton callback={createUser} title = {'Registration'}/>
         <div className = 'note-registration'>
           {'Have an account?'} 

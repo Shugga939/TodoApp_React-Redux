@@ -11,7 +11,6 @@ import { authError, authSuccess } from "../store/authReducer";
 
 function Login() {
   let [show, setShow] = useState(false)
-  // let [selectValue, setselectValue] = useState('New user')
   let [loginForm, setLoginForm] = useState ({Email: '', password: ''})
   const navigate = useNavigate()
   const dispatch = useDispatch()

@@ -4,7 +4,6 @@ import BurgerButton from './../ui/BurgerButton'
 import {Link,NavLink} from 'react-router-dom'
 import SubmitButton from '../ui/SubmitButton'
 import { useDispatch } from 'react-redux';
-import {userLogout} from '../../store/userReducer'
 import {removeTODOS} from '../../store/todoReducer'
 import { changeSearchValue } from '../../store/formReducer';
 import { getAuth, signOut } from 'firebase/auth'
@@ -17,7 +16,6 @@ function ModalMenu({show,setShow}) {
 
   let logout = async function (event) {
     event.preventDefault()
-    dispatch(userLogout())
     dispatch(removeTODOS())
     await signOut(getAuth()).catch((error) => {console.log('Error:' + error)});
     dispatch(changeSearchValue(''))
@@ -49,7 +47,7 @@ function ModalMenu({show,setShow}) {
             </div>
           :
             <div className = 'greetings'> Welcome
-              <p> {`User ${user.email}` } </p>
+              <p> {` ${user.email}` } </p>
               <p> <SubmitButton callback={logout} title = 'Log Out'></SubmitButton> </p>
             </div>
           }

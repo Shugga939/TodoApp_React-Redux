@@ -1,18 +1,19 @@
 import React from 'react'
 import './ModalMessage.css'
 import SubmitButton from '../ui/SubmitButton'
-import { useDispatch } from 'react-redux';
-import {removeTODOS} from '../../store/todoReducer'
 
 
-function ModalMenu({show, setShow, message}) {
-
-  let dispatch = useDispatch()
+function ModalMenu({show, setShow, message, callback}) {
 
   let showModal = function(event) {
     if (event.target.classList.contains('modalMessage')) {
       setShow(false)
     }
+  }
+
+  const fulfillCallback = async ()=> {
+    callback()
+    setShow(false)
   }
 
   return (
@@ -22,7 +23,7 @@ function ModalMenu({show, setShow, message}) {
               <div className='message'>{message}</div>
               <div className='buttonsContainer'>
                 <SubmitButton title='No' callback={()=>{setShow(false)}}/>
-                <SubmitButton title='Yes' callback={()=>{dispatch(removeTODOS(), setShow(false))}}/>
+                <SubmitButton title='Yes' callback={()=>{fulfillCallback()}}/>
               </div>
             </div>
           </div>

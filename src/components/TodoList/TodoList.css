@@ -35,7 +35,7 @@
 }
 
 .List .ListItem {
-  background: linear-gradient(170deg,#2196f3, #f7645a);
+  background: linear-gradient(45deg, #bf46d2,#8da2ff,#b0dafc);
   width: 100%;
   padding: 10px 10px;
   margin-top: 15px;
@@ -43,7 +43,7 @@
   justify-content: space-between;
   display: flex;
   align-items: center;
-  box-shadow: 2px 2px 2px grey;
+  box-shadow: 2px 2px 2px #8da2ff;
 }
 
 .List .ListItem.completed {
@@ -51,6 +51,7 @@
 }
 
 .messageContainer .message {
+  font-size: 1.1rem;
   border: 1px solid white ;
   border-radius: 2px;
   padding: 10px 110px;
@@ -60,7 +61,7 @@
 }
 
 .listContainer .submitButton {
-  margin: 20px 0px;
+  margin-top: 20px;
 }
 
 .deleteButton {

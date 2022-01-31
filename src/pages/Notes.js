@@ -3,7 +3,7 @@ import List from "./../components/TodoList/List";
 import Form from "./../components/Form/Form";
 import ModalMenu from "./../components/ModalMenu/ModalMenu";
 import ModalMessage from '../components/ModalMessage/ModalMessage'
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
 import {removeTODOS} from '../store/todoReducer'
 import { useDispatch } from 'react-redux';
@@ -19,11 +19,10 @@ function Notes() {
   let dispatch = useDispatch()
   const [user, loadingUser] = useAuthState(auth);
 
-
   useEffect(()=> {  
     loadingTodos()
-  })
-
+  },[user])
+  
   async function loadingTodos() {   
     if (!loadingUser) {
       if (user) {
@@ -32,11 +31,12 @@ function Notes() {
         for (const key in loadedTodos.data()) {
           arrTodos.push(loadedTodos.data()[key])
           }
-        dispatch(loadTODOS(arrTodos)) 
+        dispatch(loadTODOS(arrTodos))
       } else {
-        dispatch(removeTODOS()) 
+        dispatch(removeTODOS())
       }
     } 
+  }
     // if (!loadingDB && !loading && user) {
       // const loadedTodos =  getDocs(collection(firestore, auth.currentUser))
       // dispatch(loadTODOS(loadedTodos))
@@ -49,16 +49,26 @@ function Notes() {
     //   let localTodos = JSON.parse(localStorage.getItem('todosList'))
     //   localTodos? loadTODOS(localTodos): dispatch(removeTODOS())
     // }
+
+
+  const deleteTodos = async ()=> {
+    try {
+      const uploadedTodo = doc(firestore, 'Todos', `${auth.currentUser.email}`);
+      await setDoc(uploadedTodo, {})
+      dispatch(removeTODOS())
+      console.log('Delete success')
+    } catch (e) {
+      console.error('Error:', e)
+    }
   }
 
   return (
-      <div className = 'TODO'>
-        <ModalMenu show={showModalMenu} setShow={setShowModalMenu}/>
-        <ModalMessage message='Are you sure?'show={showModalMessage} setShow={setShowModalMessage}/>
-        <Form/>
-        <List setShow={setShowModalMessage}/>
-      </div>
-    
+    <div className = 'TODO'>
+      <ModalMenu show={showModalMenu} setShow={setShowModalMenu}/>
+      <ModalMessage message='Are you sure?'show={showModalMessage} setShow={setShowModalMessage} callback={deleteTodos}/>
+      <Form/>
+      <List setShow={setShowModalMessage}/>
+    </div>
   );
 }
 

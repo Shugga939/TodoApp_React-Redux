@@ -55,10 +55,6 @@ function List({setShow}) {
   //   // }
   // }
 
-  // useEffect(()=> {  //TODO
-  //   loadingTodos()
-  // })
-
   const saveTodos = async ()=> {
     try {
       const uploadedTodo = doc(firestore, 'Todos', `${auth.currentUser.email}`);
@@ -81,9 +77,9 @@ function List({setShow}) {
             completed = {item.completed}
             />
           })}
-        {auth.currentUser && <SubmitButton title = 'SAVE' callback = {()=>{saveTodos()}}/>} {/*TODO*/}
         </div>
-         {(sortingAndSearchingTodos.length>4) && 
+        {auth.currentUser && <SubmitButton title = 'SAVE' callback = {()=>{saveTodos()}}/>}
+         {(sortingAndSearchingTodos.length>0) && 
           <SubmitButton title = 'DELETE ALL NOTES' callback = {()=>{setShow(true)}}/>}
       </div>
     : 
